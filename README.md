@@ -5,21 +5,32 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/themaximal1st/ai.js?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/themaximal1st?style=social)
 
-**`AI.js`** is the simplest way to interact with Large Language Models (AI) like OpenAI's `gpt-3.5-turbo`, `gpt-4`, and Anthropic's `Claude`. It offers a convenient interface for developers to use different AIs in their Node.js projects.
+`AI.js` is a simple interface to the best text, image, music and video AI models you can use in your applications.
 
 ```javascript
-await AI("the color of the sky is"); // blue
+await AI("the color of the sky is");
+// blue
+
+await AI.Image("a red rose");
+// <image buffer: red rose>
+
+await AI.Music("jimi hendrix and jack white form a pop band")
+// <sound buffer: jimi hendrix and jack white form a pop band>
+
+await AI.Video("a dog wearing sunglasses driving a red sports car");
+// <video buffer: a dog wearing sunglasses driving a red sports car>
 ```
 
-**Features**
+It's that easy.
 
--   Easy to use
--   Same simple interface for all services (`openai` and `anthropic` supported)
--   Automatically manage chat history
--   Streaming made easy
--   Manage context window size
--   CLI interface to use anywhere in the shell
--   MIT license
+Under the hood, `AI.js` seamlessly integrates great AI APIs and models:
+
+* Text: OpenAI ( `gpt-4`, `gpt-3.5-turbo`), Anthropic (`claude-v1`, `claude-instant-v1`)
+* Image: `Replicate`, `StabilityAI`
+* Music: `Riffusion`
+* Video: Coming Soon
+
+With a rapidly changing field we're always on the lookout for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.
 
 _AI.js is under heavy development and still subject to breaking changes._
 
