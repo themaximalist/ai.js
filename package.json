@@ -1,7 +1,7 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.0.3",
-    "description": "Effortlessly integrate AI text, image, and music models in your applications",
+    "version": "0.0.4",
+    "description": "Effortlessly integrate AI text and image models in your node applications",
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",

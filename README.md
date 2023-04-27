@@ -305,22 +305,33 @@ Or `ai` will fallback to `$AI_SERVICE` and `$AI_MODEL` environment variables.
 blue # claude-v1 response
 ```
 
+Image and concept generation also work
+
+```bash
+> ai a red rose --image # opens generated image of a red rose
+> ai a red rose --concept # opens a generated image of a close up of a red rose, its velvety petals shining under the golden hour light. The dew on its petals captures the tranquil beauty of nature in a refreshing way. The rose stands out against the blurred background with its deep crimson red color. Perfect for a romantic gesture or a symbolic display of love. Shot in Ultra HD (4K) with a shallow depth of field
+```
+
+
+
 Here's the help interface
 
 ```bash
 > ai
 Usage: ai [options] [input]
 
-Simple AI interface to gpt-3.5-turbo, gpt-4 and Claude
+AI cli interface to generate chat completions and images
 
 Arguments:
   input                    Input to send to AI service
 
 Options:
   -V, --version            output the version number
-  -s, --service <service>  AI Service (default: "openai")
-  -m, --model <model>      Completion Model (default: "gpt-3.5-turbo")
+  -s, --service <service>  AI Service (default: openai)
+  -m, --model <model>      Completion Model (default: gpt-3.5-turbo)
   -c, --chat               Chat Mode
+  -i, --image              Image Mode
+  --concept                Concept Image Mode
   -h, --help               display help for command
 ```
 
