@@ -11,6 +11,9 @@
         "type": "git",
         "url": "git+https://github.com/themaximal1st/ai.js.git"
     },
+    "bin": {
+        "ai": "cli.js"
+    },
     "keywords": [
         "ai",
         "llm",
@@ -30,7 +33,10 @@
     "homepage": "https://github.com/themaximal1st/ai.js#readme",
     "dependencies": {
         "@anthropic-ai/sdk": "^0.4.3",
+        "commander": "^10.0.1",
         "debug": "^4.3.4",
-        "openai": "^3.2.1"
+        "openai": "^3.2.1",
+        "prompt-sync": "^4.2.0",
+        "prompt-sync-history": "^1.0.1"
     }
 }
