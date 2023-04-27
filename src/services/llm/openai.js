@@ -10,7 +10,7 @@ let openai = null;
 async function completion(messages, options = {}) {
     if (!openai) openai = createAPI();
     if (!options) options = {};
-    if (!options.model) options.model = "gpt-3.5-turbo";
+    if (!options.model) options.model = completion.defaultModel;
     if (!Array.isArray(messages)) throw new Error(`openai.completion() expected array of messages`);
 
     let networkOptions = {};

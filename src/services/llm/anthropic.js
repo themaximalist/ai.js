@@ -41,7 +41,7 @@ let anthropic = null;
 async function completion(messages, options = {}) {
     if (!anthropic) anthropic = createAPI();
     if (!options) options = {};
-    if (!options.model) options.model = "claude-v1";
+    if (!options.model) options.model = completion.defaultModel;
     if (!Array.isArray(messages)) throw new Error(`claude.completion() expected array of messages`);
 
     const prompt = toAnthropic(messages);
