@@ -35,7 +35,6 @@
     "homepage": "https://github.com/themaximal1st/ai.js#readme",
     "dependencies": {
         "@anthropic-ai/sdk": "^0.4.3",
-        "@themaximalist/ai.js": "^0.0.3",
         "commander": "^10.0.1",
         "debug": "^4.3.4",
         "openai": "^3.2.1",
