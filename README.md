@@ -1,5 +1,10 @@
 # AI.js
 
+![GitHub](https://img.shields.io/github/license/themaximal1st/ai.js)
+![npm](https://img.shields.io/npm/dw/themaximal1st/ai.js)
+![GitHub Repo stars](https://img.shields.io/github/stars/themaximal1st/ai.js?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/themaximal1st?style=social)
+
 **`AI.js`** is the simplest way to interact with Large Language Models (AI) like OpenAI's `gpt-3.5-turbo`, `gpt-4`, and Anthropic's `Claude`. It offers a convenient interface for developers to use different AIs in their Node.js projects.
 
 ```javascript
