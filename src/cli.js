@@ -5,7 +5,6 @@ const CLI_VERSION = "0.0.1";
 const CLI_DESCRIPTION = "AI cli interface to generate chat completions and images";
 
 const { Command } = require("commander");
-const { writeFileSync } = require("fs");
 
 const prompt = require("prompt-sync")({
     sigint: true,
@@ -13,7 +12,6 @@ const prompt = require("prompt-sync")({
 });
 
 const AI = require("./index");
-const packagejson = require("../package.json");
 const utils = require("./utils");
 
 const program = new Command();
