@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "Effortlessly integrate AI text and image models in your node applications",
     "main": "src/index.js",
     "scripts": {
@@ -37,7 +37,7 @@
         "@anthropic-ai/sdk": "^0.4.3",
         "commander": "^10.0.1",
         "debug": "^4.3.4",
-        "node-fetch": "^3.3.1",
+        "node-fetch": "^2.6.9",
         "openai": "^3.2.1",
         "prompt-sync": "^4.2.0",
         "prompt-sync-history": "^1.0.1",
