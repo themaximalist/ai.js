@@ -1,4 +1,4 @@
-const log = require("debug")("ai.js:llm:services:anthropic");
+const log = require("debug")("ai.js:llm:anthropic");
 
 const { PassThrough } = require("stream");
 

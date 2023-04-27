@@ -4,7 +4,8 @@
     "description": "Effortlessly integrate AI text, image, and music models in your applications",
     "main": "src/index.js",
     "scripts": {
-        "start": "node src/index.js"
+        "start": "node src/index.js",
+        "examples": "bash examples/run_all.sh"
     },
     "repository": {
         "type": "git",

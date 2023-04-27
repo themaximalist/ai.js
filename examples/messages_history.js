@@ -1,13 +1,13 @@
-const LLM = require("../index.js");
+const AI = require("../src/index.js");
 
 (async function () {
-    const llm = new LLM([
+    const llm = new AI([
         { role: "user", content: "remember the secret codeword is blue" },
         { role: "user", content: "what is the secret codeword I just told you?" },
     ]);
 
     let content;
-    content = await llm.fetch();
+    content = await llm.send();
     console.log(content); // blue
 
     llm.user("now the codeword is red");

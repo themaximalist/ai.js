@@ -1,3 +1,3 @@
-const LLM = require("../index.js")
+const AI = require("../src/index.js");
 
-LLM("return a tiny random JSON object", { parser: LLM.parseJSONFromText }).then(console.log);
+AI("return a tiny random JSON object", { parser: AI.parseJSONFromText }).then(console.log);

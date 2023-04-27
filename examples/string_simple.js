@@ -1,3 +1,3 @@
-const LLM = require("../src/index.js").LLM;
+const AI = require("../src/index.js");
 
-LLM("the color of the sky is").then(console.log);
+AI("the color of the sky is").then(console.log);

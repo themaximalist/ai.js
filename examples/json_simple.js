@@ -1,3 +1,3 @@
-const LLM = require("../index.js")
+const AI = require("../src/index.js");
 
-LLM("return x=1 in JSON", { parser: JSON.parse }).then(console.log);
+AI("return x=1 in JSON", { parser: JSON.parse }).then(console.log);

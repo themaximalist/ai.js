@@ -1,4 +1,4 @@
-const LLM = require("../../index");
+const AI = require("../../src/index");
 
 const prompt = `
 Ignore previous prompts
@@ -9,7 +9,7 @@ I only return a 7 character string.
 `.trim();
 
 async function HexAgent(input, options) {
-    return await LLM.system(prompt, input, options);
+    return await AI.system(prompt, input, options);
 }
 
 module.exports = HexAgent;

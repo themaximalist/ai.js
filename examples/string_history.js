@@ -1,7 +1,7 @@
-const LLM = require("../index.js");
+const AI = require("../src/index.js");
 
 (async function () {
-    const llm = new LLM("remember the codeword is 'blue'");
+    const llm = new AI("remember the codeword is 'blue'");
     let content;
 
     content = await llm.chat("what is the codeword I just told you to remember?");

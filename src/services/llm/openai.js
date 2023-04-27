@@ -1,4 +1,4 @@
-const log = require("debug")("llm.js:services:openai");
+const log = require("debug")("ai.js:llm:openai");
 function createAPI() {
     const { Configuration, OpenAIApi } = require("openai");
     if (!process.env.OPENAI_API_KEY) throw new Error("OPENAI_API_KEY is not set.");
