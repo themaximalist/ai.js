@@ -6,6 +6,8 @@
 await AI("the color of the sky is"); // blue
 
 await AI.Image("a red rose"); // <image buffer: red rose>
+
+await AI.Image.Concept("a red rose"); // <image buffer: a red rose in realist style, watercolor>
 ```
 
 Under the hood `AI.js` seamlessly integrates all the best AI APIs:
@@ -164,6 +166,7 @@ await|new AI(
   * `ai.user(content)` add user message
   * `ai.system(content)` add system message
   * `ai.assistant(content)` add assistant message
+* **Instance Properties**
   * `ai.messages[]` message history
   * `ai.lastMessage` last message
 
@@ -177,13 +180,54 @@ await|new AI(
 await AI.Image("a red rose"); // <image buffer: red rose>
 ```
 
-`AI.js` also provides a concept generator—a way of using chat completion to generate a great image prompt.
+`AI.js` also provides a concept generator—a way of using chat completion to generate a great image prompt. Using a concept generator can result in significantly better generated images.
 
 ```javascript
 await AI.Image.Concept("a red rose"); // <image buffer: a red rose in realist style, watercolor>
 ```
 
-This hits your `LLM` provider and generates a complex image prompt before sending it off to the image generation service.
+This hits your `LLM` provider and generates a complex image prompt before sending it off to the image generation service. 
+
+You can also create an `AI.Image` object to retrieve properties like `generated_prompt` from `AI.Image.Concept`.
+
+```javascript
+const image = new AI.Image("a red rose");
+await image.concept(); // <image buffer: a red rose in realist style, watercolor>
+console.log(image.generated_prompt); // a red rose in the realist style, watercolor
+```
+
+
+
+### AI.Image() Interface
+
+The `AI.Image()` interface takes an input prompt and a few options.
+
+```javascript
+await|new Image(
+    string,
+    options = {
+        service: "stability", // stability, replicate
+        model: "stable-diffusion-xl-beta-v2-2-2",
+        concept_service: "openai", // openai, anthropic
+        concept_model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
+        concept_prompt: "I am Concept2Prompt. My task is to generate rich and dynamic scenes ...",
+    }
+);
+```
+
+* **Static Methods**
+  * `Image.Concept(string, options=null)` generate a concept and send image completion request to network
+* **Instance Methods**
+  * `image.send(options=null)` send image completion request to network
+  * `image.concept(prompt, options=null)` generate concept prompt and then send image completion request to network
+* **Instance Properties**
+  * `image.prompt` prompt supplied by user
+  * `image.generated_prompt` prompt created from `concept()`
+  * `service` image service
+  * `model` image model
+  * `concept_model` LLM concept model
+  * `concept_service` LLM concept service
+  * `concept_prompt` LLM concept prompt (uses default but can be overridden)
 
 
 
