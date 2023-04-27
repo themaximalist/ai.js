@@ -1,0 +1,35 @@
+{
+    "name": "@themaximalist/ai.js",
+    "version": "0.0.1",
+    "description": "Effortlessly integrate AI text, image, and music models in your applications",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/themaximal1st/ai.js.git"
+    },
+    "keywords": [
+        "ai",
+        "llm",
+        "openai",
+        "anthropic",
+        "gpt-3.5-turbo",
+        "gpt-4",
+        "claude-v1",
+        "stablediffusion",
+        "riffusion"
+    ],
+    "author": "The Maximalist",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/themaximal1st/ai.js/issues"
+    },
+    "homepage": "https://github.com/themaximal1st/ai.js#readme",
+    "dependencies": {
+        "@anthropic-ai/sdk": "^0.4.3",
+        "debug": "^4.3.4",
+        "openai": "^3.2.1"
+    }
+}
