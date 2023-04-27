@@ -14,7 +14,7 @@
         "url": "git+https://github.com/themaximal1st/ai.js.git"
     },
     "bin": {
-        "ai": "cli.js"
+        "ai": "src/cli.js"
     },
     "keywords": [
         "ai",
@@ -39,7 +39,8 @@
         "debug": "^4.3.4",
         "openai": "^3.2.1",
         "prompt-sync": "^4.2.0",
-        "prompt-sync-history": "^1.0.1"
+        "prompt-sync-history": "^1.0.1",
+        "replicate": "^0.11.1"
     },
     "devDependencies": {
         "mocha": "^10.2.0"

@@ -1,3 +1,4 @@
 module.exports = {
-    llm: require("./llm")
+    llm: require("./llm"),
+    image: require("./image"),
 };

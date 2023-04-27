@@ -1,6 +1,6 @@
 # AI.js
 
-`AI.js` is the easiest way to add AI text and image capabilities to your applications:
+`AI.js` is the easiest way to add AI text and image capabilities to your node applications:
 
 ```javascript
 await AI("the color of the sky is"); // blue
@@ -14,6 +14,7 @@ Under the hood `AI.js` seamlessly integrates all the best AI APIs:
 * **Image**: Replicate, StabilityAI
 * **Music:** *Coming Soon*
 * **Video:** *Coming Soon*
+* **Embeddings:** *Coming Soon*
 
 We're constantly looking for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.
 
@@ -146,7 +147,7 @@ await|new AI(
         model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
         parser: null, // optional content parser or stream parser
         stream: false,
-        context: AI.CONTEXT_FULL, // slices of message history can be sent, but by defualt we send everything
+        context: AI.CONTEXT_FULL, // slices of message history can be sent, but by default send everything
     }
 );
 ```
