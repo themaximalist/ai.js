@@ -1,7 +1,7 @@
 # AI.js
 
 ![GitHub](https://img.shields.io/github/license/themaximal1st/ai.js)
-![npm](https://img.shields.io/npm/dw/themaximal1st/ai.js)
+![npm](https://img.shields.io/npm/dw/@themaximalist/ai.js)
 ![GitHub Repo stars](https://img.shields.io/github/stars/themaximal1st/ai.js?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/themaximal1st?style=social)
 
