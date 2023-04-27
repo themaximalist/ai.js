@@ -1,4 +1,5 @@
 const log = require("debug")("ai.js:image:stability");
+const fetch = require("node-fetch");
 
 const BASE_URL = "https://api.stability.ai";
 
