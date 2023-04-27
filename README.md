@@ -12,7 +12,7 @@ Under the hood `AI.js` seamlessly integrates all the best AI APIs:
 
 * **Text**: OpenAI, Anthropic
 * **Image**: Replicate, StabilityAI
-* **Music: ** *Coming Soon*
+* **Music:** *Coming Soon*
 * **Video:** *Coming Soon*
 
 We're constantly looking for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.

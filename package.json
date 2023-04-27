@@ -5,6 +5,8 @@
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",
+        "test": "mocha",
+        "test:watch": "mocha --watch",
         "examples": "bash examples/run_all.sh"
     },
     "repository": {
@@ -38,5 +40,8 @@
         "openai": "^3.2.1",
         "prompt-sync": "^4.2.0",
         "prompt-sync-history": "^1.0.1"
+    },
+    "devDependencies": {
+        "mocha": "^10.2.0"
     }
 }
