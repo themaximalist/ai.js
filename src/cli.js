@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 const log = require("debug")("ai.js:cli");
 
+const CLI_VERSION = "0.0.1";
+const CLI_DESCRIPTION = "AI cli interface to generate chat completions and images";
+
 const { Command } = require("commander");
 const { writeFileSync } = require("fs");
 
@@ -63,8 +66,8 @@ async function run(input, options) {
 
 program
     .name("ai")
-    .description(packagejson.description)
-    .version(`AI cli interface to generate chat completions and images`)
+    .description(CLI_DESCRIPTION) // cli interface uses different version than package.json
+    .version(CLI_VERSION)
 
 program
     .option('-s, --service <service>', 'AI Service (default: openai)')
