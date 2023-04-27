@@ -1,105 +1,127 @@
 # AI.js
 
-![GitHub](https://img.shields.io/github/license/themaximal1st/ai.js)
-![npm](https://img.shields.io/npm/dw/@themaximalist/ai.js)
-![GitHub Repo stars](https://img.shields.io/github/stars/themaximal1st/ai.js?style=social)
-![Twitter Follow](https://img.shields.io/twitter/follow/themaximal1st?style=social)
-
-`AI.js` is a simple interface to the best text, image, music and video AI models you can use in your applications.
+`AI.js` is the easiest way to add AI text and image capabilities to your applications:
 
 ```javascript
-await AI("the color of the sky is");
-// blue
+await AI("the color of the sky is"); // blue
 
-await AI.Image("a red rose");
-// <image buffer: red rose>
-
-await AI.Music("jimi hendrix and jack white form a pop band")
-// <sound buffer: jimi hendrix and jack white form a pop band>
-
-await AI.Video("a dog wearing sunglasses driving a red sports car");
-// <video buffer: a dog wearing sunglasses driving a red sports car>
+await AI.Image("a red rose"); // <image buffer: red rose>
 ```
 
-It's that easy.
+Under the hood `AI.js` seamlessly integrates all the best AI APIs:
 
-Under the hood, `AI.js` seamlessly integrates great AI APIs and models:
+* **Text**: OpenAI, Anthropic
+* **Image**: Replicate, StabilityAI
+* **Music: ** *Coming Soon*
+* **Video:** *Coming Soon*
 
-* Text: OpenAI ( `gpt-4`, `gpt-3.5-turbo`), Anthropic (`claude-v1`, `claude-instant-v1`)
-* Image: `Replicate`, `StabilityAI`
-* Music: `Riffusion`
-* Video: Coming Soon
+We're constantly looking for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.
 
-With a rapidly changing field we're always on the lookout for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.
+*AI.js is under heavy development and still subject to breaking changes.*
 
-_AI.js is under heavy development and still subject to breaking changes._
 
-## Install
 
-Make sure you have `OPENAI_API_KEY` or `ANTHROPIC_API_KEY` set in your environment variables.
+## Features
+
+* Easy to use
+* Best LLM chat completion models (`gpt-3.5-turbo`, `gpt-4`, `claude-v1`, `claude-instant-v1`)
+* Best hosted image generation APIs (`stable-diffusion-xl-beta-v2-2-2`, many other Stable Diffusion models)
+* Same interface across all services
+* Streaming is easy as `{stream: true}`
+* `ai` CLI interface in your shell
+* MIT license
+
+
+
+## Installation
+
+Install `AI.js` via npm
 
 ```bash
 npm install @themaximalist/ai.js
-export OPENAI_API_KEY=...
 ```
+
+Enable at least one service by setting its environment `API_KEY`
+
+```bash
+export OPENAI_API_KEY=sk-...
+export ANTHROPIC_API_KEY=sk-ant-...
+export STABILITY_API_KEY=sk-...
+export REPLICATE_API_KEY=sk-....
+```
+
+
 
 ## Usage
 
-### Simple completion
-
-The simplest way to call `AI.js` is directly as an `async function`, using a `string` as a parameter. This performs a single request and doesn't store any history.
+The default interface is text. `AI.js` lets you send one-off requests or build up complex message histories with the Large Language Model (LLM).
 
 ```javascript
 const AI = require("@themaximalist/ai.js");
-await AI("hello"); // Response: hi
+await AI("what is the codeword?"); // i don't know any codewords
+
+const ai = new AI("the codeword is blue");
+await ai.chat("what is the codeword?"); // blue
 ```
 
-### Completion with history
 
-Storing history is as simple as initializing with `new AI()`. Call `fetch()` to send the current state for completion, and `chat()` to update the messages and fetch in one command. Both chats from the `user` and responses from the AI `assistant` are stored automatically.
+
+### System and User Prompts
+
+Giving the `LLM` a role can help improve performance, this can be done through `system` and `user` prompts.
 
 ```javascript
-const ai = new AI("what's the color of the sky in hex value?");
-await ai.fetch(); // Response: sky blue
-await ai.chat("what about at night time?"); // Response: darker value (uses previous context to know we're asking for a color)
+await AI.system("I am HexBot—I generate beautiful hex color schemes", "autumn tree");
+// #F2AF80 (soft peach), #E78C4D (burnt orange), #C86018 (rusty red), #5B3B0B (deep brown), #252527 (dark grey)
 ```
 
-### System prompts
-
-Create agents that specialize at specific tasks using `AI.system(prompt, input)`. Note OpenAI has suggested system prompts may not be
-as effective as user prompts (`AI.user(prompt, input)`). These are one-time use AI's because they don't store the message history.
+OpenAI has mentioned `user` prompts may be more strongly enforced than `system` prompts.
 
 ```javascript
-await AI.system("I am HexBot, I imagine colors and return hex values", "sky"); // Response: sky blue
-await AI.system(
-    "I am HexBot, I imagine colors and return hex values",
-    "sky at night"
-); // Response: darker
+await AI.user("You are HexBot—you generate beautiful hex color schemes", "autumn tree");
+// #F2AF80 (soft peach), #E78C4D (burnt orange), #C86018 (rusty red), #5B3B0B (deep brown), #252527 (dark grey)
 ```
 
-### System prompts with history
-
-Storing message history with system prompts is easy—just initialize a `new AI()` and call `system()` to initialize a system prompt. A network request is not sent until `fetch()` or `chat()` is called—so you can build up examples for the AI with a combination of `system()`, `user()`, and `assistant()`—or keep an agent running for a long time with context of previous conversations.
+Providing `system` and `user` roles can also be used with message history.
 
 ```javascript
 const ai = new AI();
-ai.system("I am HexBot, I imagine colors and return hex values");
-await ai.chat("sky"); // Response: sky blue
-await ai.chat("lighter"); // Response: lighter sky blue (has previous context to know what we mean)
+ai.system("I am HexBot—I generate beautiful hex color schemes");
+await ai.chat("autumn tree");
+// #663300 (dark brown), #CC6600 (deep orange), #FF9900 (bright orange), #FFCC00 (golden yellow), #663399 (deep purple)
+await ai.chat("make it lighter");
+// #885533 (light brown), #FF9933 (pale orange), #FFCC66 ( light orange), #FFEE99 (pale yellow), #9966CC (light purple)
 ```
 
-Here's a user prompt example:
+
+
+## Message History
+
+Chat history can build up over time, or you can initialize with an existing history.
 
 ```javascript
-const ai = new AI();
-ai.user("remember the secret codeword is blue");
-await ai.chat("what is the secret codeword I just told you?"); // Response: blue
-ai.user("now the codeword is red");
-await ai.chat("what is the secret codeword I just told you?"); // Response: red
-await ai.chat("what was the first secret codeword I told you?"); // Response: blue
+await AI([
+    { role: "user", content: "remember the secret codeword is blue" },
+    { role: "user", content: "what is the secret codeword I just told you?" },
+]); // blue
+```
+Or initialize with an existing history, and continue the conversation.
+
+```javascript
+const ai = new AI([
+    { role: "user", content: "remember the secret codeword is blue" },
+    { role: "user", content: "what is the secret codeword I just told you?" },
+]);
+await ai.send(); // blue
+await ai.chat("now the codeword is red");
+await ai.chat("what is the codeword?"); // red
 ```
 
-### Streaming completions
+Note: Anthropic's message format is text-based and less convenient, so `AI.js` uses the OpenAI message format, and it's converted automatically on-the-fly for Anthropic.
+
+
+
+### Streaming
 
 Streaming is as easy as passing `{stream: true}` as the second options parameter. A generator is returned that yields the completion tokens in real-time.
 
@@ -110,88 +132,59 @@ for await (const message of stream) {
 }
 ```
 
-### Messages with simple interaction
 
-So far every input to `AI()` has been a `string`, but you can also send an array of previous messages. The same `await AI()`/`new AI()` interface works as expected, as does streaming, etc...
 
-```javascript
-await AI([
-    { role: "user", content: "remember the secret codeword is blue" },
-    { role: "user", content: "what is the secret codeword I just told you?" },
-]); // Response: blue
-```
+### AI() Interface
 
-Note, the OpenAI message data format is used for all models. Anthropic uses a text-based "Human: text\n\nAssistant: text" format which is isn't as convenient—so Claude messages are converted automatically on-the-fly.
-
-## Fetch Context
-
-When sending message history for completion, managing long conversations will eventually run into a size limit. There are a few helpful `context` options you can pass into `fetch()`.
+The `AI()` interface is the same whether you're using `new` or `await`. Also `options` aim to be the same everywhere you can pass them, and use the most local scope possible, falling back to more global defaults and environment variables when needed.
 
 ```javascript
-const ai = new AI([...]);
-await ai.fetch({context: AI.CONTEXT_FIRST}); // send first message
-await ai.fetch({context: AI.CONTEXT_LAST}); // send last message
-await ai.fetch({context: AI.CONTEXT_OUTSIDE}); // send first and last messages
-await ai.fetch({context: AI.CONTEXT_FULL}); // send everything (default)
-```
-
-## API
-
-The simplest interface to `AI.js` is calling `await AI()`
-
-```javascript
-await AI(
+await|new AI(
     string | array,
     options = {
         service: "openai", // openai, anthropic
         model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
         parser: null, // optional content parser or stream parser
         stream: false,
+        context: AI.CONTEXT_FULL, // slices of message history can be sent, but by defualt we send everything
     }
 );
 ```
 
-To store message history, call `new AI()` to initiate the `AI` object—the interface and options are the same.
+
+
+* **Static Methods**
+  * `AI.system(prompt, input, option=null)` one-time use system prompt
+  * `AI.user(prompt, input, options=null`) one-time use user prompt
+
+* **Instance Methods**
+  * `ai.send(options=null)` send chat completion request to network
+  * `ai.chat(content, options=null)` add user message and send chat completion request to network
+  * `ai.user(content)` add user message
+  * `ai.system(content)` add system message
+  * `ai.assistant(content)` add assistant message
+  * `ai.messages[]` message history
+  * `ai.lastMessage` last message
+
+
+
+## Image Generation
+
+`AI.js` provides powerful image generation functions through `StabilityAI` and `Replicate`. To get started, make sure you've set the `STABILITY_API_KEY` or `REPLICATE_API_KEY` environment variable.
 
 ```javascript
-new AI(
-    string | array,
-    options = {
-        service: "openai", // openai, anthropic
-        model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
-        parser: null, // optional content parser or stream parser
-        stream: false,
-    }
-);
+await AI.Image("a red rose"); // <image buffer: red rose>
 ```
 
-#### AI() Instance Methods
+`AI.js` also provides a concept generator—a way of using chat completion to generate a great image prompt.
 
--   **AI.fetch({context: AI.CONTEXT_FULL, stream: false, parser: null, model: default})** send network request for completion. See `context` docs above
-    and [Infinity Arcade](https://github.com/themaximal1st/InfinityArcade/blob/main/src/services/parseTokenStream.js) for a custom stream parser implementation. `parser` can also be something
-    like `JSON.parse()` when not streaming. `AI.parseJSONFromText` can also be used as a lenient JSON parser.
--   **AI.user(content)** add user content
--   **AI.system(content)** add system content
--   **AI.assistant(content)** add assistant content
--   **AI.chat(content, options)** add user content and send `fetch`
--   **AI.messages[]** message history
--   **AI.lastMessage**
+```javascript
+await AI.Image.Concept("a red rose"); // <image buffer: a red rose in realist style, watercolor>
+```
 
-#### AI() Static Methods
+This hits your `LLM` provider and generates a complex image prompt before sending it off to the image generation service.
 
--   **AI.system(prompt, input, options)** helper for one-time use system prompt
--   **AI.user(prompt, input, options)** helper for one-time use user prompt
 
-#### AI.js Options
-
-`AI.js` attempts to use similar interfaces everywhere.
-
--   Initialize default options with environment variables
--   Initialize in `await AI(options)` or `new AI(options)`
--   Set `ai.fetch(options)` per request
--   Set `ai.chat(input, options)` per chat request
-
-`AI.js` will use whatever you specify, and fallback to a more global default if not set.
 
 ## Environment Variables
 
@@ -202,6 +195,8 @@ new AI(
 ```bash
 export OPENAI_API_KEY=sk-...
 export ANTHROPIC_API_KEY=sk-ant-...
+export STABILITY_API_KEY=sk-...
+export REPLICATE_API_KEY=sk-....
 ```
 
 ##### Configure Service
@@ -209,6 +204,9 @@ export ANTHROPIC_API_KEY=sk-ant-...
 ```bash
 export AI_SERVICE=openai
 export AI_SERVICE=anthropic
+
+export AI_IMAGE_SERVICE=stability
+export AI_IMAGE_SERVICE=replicate
 ```
 
 ##### Configure Model
@@ -218,9 +216,13 @@ export AI_MODEL=gpt-3.5-turbo
 export AI_MODEL=gpt-4
 export AI_MODEL=claude-v1
 export AI_MODEL=claude-instant-v1
+
+export AI_IMAGE_MODEL=stable-diffusion-xl-beta-v2-2-2
 ```
 
 `AI.js` will make some effort to make sure the right models are used with the right service if no defaults are set. So you can switch to `anthropic` and `AI.js` will automatically use `claude-v1`.
+
+
 
 ## `AI` Command in your Shell
 
@@ -277,6 +279,8 @@ Options:
   -h, --help               display help for command
 ```
 
+
+
 ## Debug
 
 `AI.js` and `ai` use the `debug` npm module with the `ai.js` namespace, so you can view debug logs by setting the `DEBUG` environment variable.
@@ -291,9 +295,13 @@ blue
 blue
 ```
 
+
+
 ## Examples
 
 View [examples](https://github.com/themaximal1st/ai.js/tree/main/examples) on how to use `AI.js`.
+
+
 
 ## Projects
 
@@ -301,10 +309,14 @@ View [examples](https://github.com/themaximal1st/ai.js/tree/main/examples) on ho
 
 -   [Infinity Arcade](https://infinityarcade.com)
 
+
+
 ## Author
 
 -   [The Maximalist](https://themaximalist.com/)
 -   [@themaximal1st](https://twitter.com/themaximal1st)
+
+
 
 ## License
 
