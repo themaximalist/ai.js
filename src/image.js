@@ -47,7 +47,7 @@ Image.prototype.send = async function (options = null) {
     return await service(this.prompt, options);
 }
 
-Image.prototype.concept = async function (options = null) {
+Image.prototype.generate_concent_prompt = async function (options = null) {
     if (!this.prompt) throw new Error("concept expects a prompt");
     if (!options) options = {};
 
@@ -65,7 +65,10 @@ Image.prototype.concept = async function (options = null) {
 
     this.generated_prompt = await llm.send();
     log(`generated prompt: ${this.generated_prompt}`);
+}
 
+Image.prototype.concept = async function (options = null) {
+    await this.generate_concent_prompt(options);
     return await Image(this.generated_prompt, options);
 }
 
