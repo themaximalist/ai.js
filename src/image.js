@@ -65,6 +65,8 @@ Image.prototype.generate_concept_prompt = async function (options = null) {
 
     this.generated_prompt = await llm.send();
     log(`generated prompt: ${this.generated_prompt}`);
+
+    return this.generated_prompt;
 }
 
 Image.prototype.concept = async function (options = null) {
