@@ -26,6 +26,7 @@ function Image(prompt, options = null) {
         });
     }
 
+    this.options = options;
     this.prompt = prompt;
     this.generated_prompt = null;
     this.service = options.service || process.env.AI_IMAGE_SERVICE || "stability";
@@ -40,7 +41,7 @@ Image.prototype.send = async function (options = null) {
     const service = services.image[this.service];
     if (!service) throw new Error(`AI.js is using "${this.service}" but it is not enabled. Please set the ${this.service.toLocaleUpperCase()}_API_KEY environment variable.`);
 
-    if (!options) options = {};
+    if (!options) options = this.options;
     if (!options.model) options.model = this.model;
 
     log(`sending ${this.service} image generation request`);
