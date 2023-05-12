@@ -6,6 +6,14 @@ function createAPI() {
     return new OpenAIApi(configuration);
 }
 
+function isChatCompletionModel(model) {
+    if (model.indexOf("text-davinci") == 0) return false;
+    if (model.indexOf("text-curie") == 0) return false;
+    if (model.indexOf("text-babbage") == 0) return false;
+    if (model.indexOf("text-ada") == 0) return false;
+    return true;
+}
+
 let openai = null;
 async function completion(messages, options = {}) {
     if (!openai) openai = createAPI();
@@ -19,7 +27,7 @@ async function completion(messages, options = {}) {
 
     log(`hitting openai chat completion API with ${messages.length} messages (model: ${options.model}, stream: ${options.stream})`)
 
-    const isChatModel = options.model.indexOf("text-davinci") !== 0 && options.model.indexOf("text-curie") !== 0;
+    const isChatModel = isChatCompletionModel(options.model);
 
     let response;
     if (isChatModel) {
