@@ -11,6 +11,7 @@ async function completion(messages, options = {}) {
     if (!openai) openai = createAPI();
     if (!options) options = {};
     if (!options.model) options.model = completion.defaultModel;
+    if (!options.temperature) options.temperature = 0.7;
     if (!Array.isArray(messages)) throw new Error(`openai.completion() expected array of messages`);
 
     let networkOptions = {};
@@ -18,18 +19,39 @@ async function completion(messages, options = {}) {
 
     log(`hitting openai chat completion API with ${messages.length} messages (model: ${options.model}, stream: ${options.stream})`)
 
+    const isChatModel = options.model.indexOf("text-davinci") !== 0 && options.model.indexOf("text-curie") !== 0;
 
-    const response = await openai.createChatCompletion({
-        messages,
-        model: options.model,
-        stream: options.stream,
-    }, networkOptions);
+    let response;
+    if (isChatModel) {
+        response = await openai.createChatCompletion({
+            messages,
+            model: options.model,
+            temperature: options.temperature,
+            stream: options.stream,
+        }, networkOptions);
+    } else {
+
+        const prompt = messages.map(message => message.content).join("\n").trim(); // hacky
+        console.log(prompt);
+        response = await openai.createCompletion({
+            prompt,
+            model: options.model,
+            temperature: options.temperature,
+            stream: options.stream,
+        }, networkOptions);
+    }
 
     if (options.stream) {
         const parser = options.parser || completion.parseStream;
-        return parser(response, options.streamCallback);
+        return parser(response, options.streamCallback, isChatModel);
     } else {
-        const content = response.data.choices[0].message.content.trim();
+        let content;
+        if (isChatModel) {
+            content = response.data.choices[0].message.content.trim();
+        } else {
+            content = response.data.choices[0].text.trim();
+        }
+
         if (options.parser) {
             return options.parser(content);
         }
@@ -38,7 +60,7 @@ async function completion(messages, options = {}) {
     }
 }
 
-completion.parseStream = async function* (response, callback = null) {
+completion.parseStream = async function* (response, callback = null, isChatModel = true) {
     let content = "";
     for await (const chunk of response.data) {
         const lines = chunk
@@ -56,7 +78,12 @@ completion.parseStream = async function* (response, callback = null) {
             }
 
             const json = JSON.parse(message);
-            const token = json.choices[0].delta.content;
+            let token;
+            if (isChatModel) {
+                token = json.choices[0].delta.content;
+            } else {
+                token = json.choices[0].text;
+            }
             if (!token) continue;
 
             content += token;
