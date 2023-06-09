@@ -25,6 +25,16 @@ describe("llm", function () {
             const stream = await AI("the color of the sky is", { stream: true });
             assert(await expectStream(stream, "blue"));
         });
+
+        it("custom temperature", async function () {
+            const response = await AI("the color of the sky is", { temperature: 0 });
+            assert.equal(response, "blue during the day and black at night. However, during sunrise and sunset, the sky can take on a range of colors including shades of pink, orange, and purple.");
+        });
+
+        it("max tokens", async function () {
+            const response = await AI("the color of the sky is", { temperature: 0, max_tokens: 1 });
+            assert.equal(response, "blue");
+        });
     });
 
     describe("anthropic", function () {
@@ -43,6 +53,16 @@ describe("llm", function () {
         it("streaming", async function () {
             const stream = await AI("the color of the sky is", { service: "anthropic", stream: true });
             assert(await expectStream(stream, "blue"));
+        });
+
+        it("custom temperature", async function () {
+            const response = await AI("the color of the sky is frequently", { service: "anthropic", temperature: 0 });
+            assert.equal(response, "Blue. The color of the sky is frequently blue.");
+        });
+
+        it("max tokens", async function () {
+            const response = await AI("the color of the sky is frequently", { service: "anthropic", temperature: 0, max_tokens: 1 });
+            assert.equal(response, "Blue");
         });
     });
 });

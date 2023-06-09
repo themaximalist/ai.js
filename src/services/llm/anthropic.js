@@ -52,7 +52,18 @@ async function completion(messages, options = {}) {
         model: options.model
     };
 
-    log(`hitting anthropic completion API with ${messages.length} messages (model: ${options.model}, stream: ${options.stream})`)
+    if (typeof options.temperature !== "undefined") {
+        anthropicOptions.temperature = options.temperature;
+        if (anthropicOptions.temperature < 0) anthropicOptions.temperature = 0;
+        if (anthropicOptions.temperature > 1) anthropicOptions.temperature = 1;
+    }
+
+    if (typeof options.max_tokens !== "undefined") {
+        anthropicOptions.max_tokens_to_sample = options.max_tokens;
+    }
+
+    log(`hitting anthropic chat completion API with ${messages.length} messages (${JSON.stringify(anthropicOptions)})`)
+
     if (options.stream) {
         const stream = new PassThrough();
         let content = "";

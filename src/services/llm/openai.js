@@ -19,34 +19,37 @@ async function completion(messages, options = {}) {
     if (!openai) openai = createAPI();
     if (!options) options = {};
     if (!options.model) options.model = completion.defaultModel;
-    if (!options.temperature) options.temperature = 0.7;
     if (!Array.isArray(messages)) throw new Error(`openai.completion() expected array of messages`);
 
     let networkOptions = {};
     if (options.stream) networkOptions.responseType = "stream";
 
-    log(`hitting openai chat completion API with ${messages.length} messages (model: ${options.model}, stream: ${options.stream})`)
-
     const isChatModel = isChatCompletionModel(options.model);
+
+    const openaiOptions = {
+        model: options.model,
+        stream: options.stream,
+    };
+
+    if (typeof options.temperature !== "undefined") {
+        openaiOptions.temperature = options.temperature;
+        if (openaiOptions.temperature < 0) openaiOptions.temperature = 0;
+        if (openaiOptions.temperature > 2) openaiOptions.temperature = 2;
+    }
+
+    if (typeof options.max_tokens !== "undefined") {
+        openaiOptions.max_tokens = options.max_tokens;
+    }
+
+    log(`hitting openai ${isChatModel ? "chat" : "regular"} completion API with ${messages.length} messages (${JSON.stringify(openaiOptions)})`)
 
     let response;
     if (isChatModel) {
-        response = await openai.createChatCompletion({
-            messages,
-            model: options.model,
-            temperature: options.temperature,
-            stream: options.stream,
-        }, networkOptions);
+        openaiOptions.messages = messages;
+        response = await openai.createChatCompletion(openaiOptions, networkOptions);
     } else {
-
-        const prompt = messages.map(message => message.content).join("\n").trim(); // hacky
-        console.log(prompt);
-        response = await openai.createCompletion({
-            prompt,
-            model: options.model,
-            temperature: options.temperature,
-            stream: options.stream,
-        }, networkOptions);
+        openaiOptions.prompt = messages.map(message => message.content).join("\n").trim(); // hacky
+        response = await openai.createCompletion(openaiOptions, networkOptions);
     }
 
     if (options.stream) {

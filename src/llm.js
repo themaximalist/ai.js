@@ -27,6 +27,8 @@ function AI(input, options = null) {
     this.service = options.service || process.env.AI_SERVICE || "openai";
     this.model = options.model || process.env.AI_MODEL || services.llm[this.service].defaultModel;
     this.parser = options.parser || null;
+    this.temperature = (typeof options.temperature != "undefined" ? options.temperature : null);
+    this.max_tokens = (typeof options.max_tokens != "undefined" ? options.max_tokens : null);
     this.stream = !!options.stream;
     this.context = options.context || AI.CONTEXT_FULL;
     this.messages = messages;
@@ -71,6 +73,8 @@ AI.prototype.send = async function (options = null) {
     if (!options.stream && this.stream) options.stream = this.stream;
     if (!options.parser && this.parser) options.parser = this.parser;
     if (!options.context) options.context = this.context;
+    if ((typeof options.temperature == "undefined" || options.temperature == null) && this.temperature !== null) options.temperature = this.temperature;
+    if ((typeof options.max_tokens == "undefined" || options.max_tokens == null) && this.max_tokens !== null) options.max_tokens = this.max_tokens;
 
     let messages;
     if (options.context == AI.CONTEXT_FIRST) {
