@@ -23,15 +23,25 @@ function toAnthropicRole(role) {
             throw new Error(`unknown anthropic role ${role}`);
     }
 }
-function toAnthropic(input) {
+function toAnthropic(input, partial = false) {
     if (typeof input == "string") {
-        return `${HUMAN_PROMPT} ${input}${AI_PROMPT}`;
+        if (partial) {
+            return `${HUMAN_PROMPT} ${input}`;
+        } else {
+            return `${HUMAN_PROMPT} ${input}${AI_PROMPT}`;
+        }
     } else if (Array.isArray(input)) {
         const conversation = input.map((message) => {
             return `${toAnthropicRole(message.role)} ${message.content}`;
         });
 
-        return `${conversation.join("")}${AI_PROMPT} `
+        const conversationStr = conversation.join("");
+
+        if (partial) {
+            return `${conversationStr} `
+        } else {
+            return `${conversationStr}${AI_PROMPT} `
+        }
     }
 
     throw new Error(`unknown anthropic message format, must be string|array`)
@@ -44,7 +54,8 @@ async function completion(messages, options = {}) {
     if (!options.model) options.model = completion.defaultModel;
     if (!Array.isArray(messages)) throw new Error(`claude.completion() expected array of messages`);
 
-    const prompt = toAnthropic(messages);
+    const prompt = toAnthropic(messages, options.partial);
+
     const anthropicOptions = {
         prompt,
         stop_sequences: [HUMAN_PROMPT],

@@ -149,6 +149,9 @@ await|new AI(
         model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
         parser: null, // optional content parser or stream parser
         stream: false,
+        temperature: null, // optional, can be 0-2 for openai, 0-1 for anthropic
+        max_tokens: null, // optional for openai, defaults to 2,000 for anthropic because its required
+        partial: false, // specify whether last response is a partial response "putting words in the AI's mouth"
         context: AI.CONTEXT_FULL, // slices of message history can be sent, but by default send everything
     }
 );

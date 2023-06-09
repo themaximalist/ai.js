@@ -64,5 +64,28 @@ describe("llm", function () {
             const response = await AI("the color of the sky is frequently", { service: "anthropic", temperature: 0, max_tokens: 1 });
             assert.equal(response, "Blue");
         });
+
+        it("partial prompt", async function () {
+            const messages = [
+                { role: "user", content: "the color of the sky can be" },
+                { role: "assistant", content: "yellow because" },
+            ];
+            const response = await AI(messages, { service: "anthropic", temperature: 0, partial: true });
+            assert.equal(response, "of the sun");
+        });
+
+        it("accurate partial message history", async function () {
+            const messages = [
+                { role: "user", content: "the color of the sky can be" },
+                { role: "assistant", content: "yellow because" },
+            ];
+            const ai = new AI(messages, { service: "anthropic", temperature: 0, partial: true });
+            assert(ai.partial);
+            const response = await ai.send();
+            assert.equal(response, "of the sun");
+            assert(!ai.partial);
+            assert.equal(ai.lastMessage.role, "assistant");
+            assert.equal(ai.lastMessage.content, "yellow because of the sun");
+        });
     });
 });

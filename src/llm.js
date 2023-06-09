@@ -30,6 +30,7 @@ function AI(input, options = null) {
     this.temperature = (typeof options.temperature != "undefined" ? options.temperature : null);
     this.max_tokens = (typeof options.max_tokens != "undefined" ? options.max_tokens : null);
     this.stream = !!options.stream;
+    this.partial = !!options.partial;
     this.context = options.context || AI.CONTEXT_FULL;
     this.messages = messages;
 
@@ -60,7 +61,12 @@ AI.prototype.system = function (content) {
 }
 
 AI.prototype.assistant = function (content) {
-    this.messages.push({ role: "assistant", content });
+    if (this.partial) {
+        this.lastMessage.content += ` ${content}`;
+        this.partial = false;
+    } else {
+        this.messages.push({ role: "assistant", content });
+    }
 }
 
 AI.prototype.send = async function (options = null) {
@@ -72,6 +78,7 @@ AI.prototype.send = async function (options = null) {
     if (!options.model) options.model = this.model;
     if (!options.stream && this.stream) options.stream = this.stream;
     if (!options.parser && this.parser) options.parser = this.parser;
+    if (!options.partial && this.partial) options.partial = this.partial;
     if (!options.context) options.context = this.context;
     if ((typeof options.temperature == "undefined" || options.temperature == null) && this.temperature !== null) options.temperature = this.temperature;
     if ((typeof options.max_tokens == "undefined" || options.max_tokens == null) && this.max_tokens !== null) options.max_tokens = this.max_tokens;
