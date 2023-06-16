@@ -25,6 +25,7 @@ async function completion(messages, options = {}) {
     if (options.stream) networkOptions.responseType = "stream";
 
     const isChatModel = isChatCompletionModel(options.model);
+    const isFunctionCall = typeof options.schema !== "undefined" && typeof options.function_call !== "undefined";
 
     const openaiOptions = {
         model: options.model,
@@ -39,6 +40,14 @@ async function completion(messages, options = {}) {
 
     if (typeof options.max_tokens !== "undefined") {
         openaiOptions.max_tokens = options.max_tokens;
+    }
+
+    if (isFunctionCall) {
+        openaiOptions.functions = [{
+            name: options.function_call,
+            parameters: options.schema
+        }];
+        openaiOptions.function_call = { name: options.function_call };
     }
 
     log(`hitting openai ${isChatModel ? "chat" : "regular"} completion API with ${messages.length} messages (${JSON.stringify(openaiOptions)})`)
@@ -58,6 +67,18 @@ async function completion(messages, options = {}) {
     } else {
         let content;
         if (isChatModel) {
+            if (isFunctionCall) {
+                const message = response.data.choices[0].message;
+                if (!message.function_call) throw new Error(`Expected function call response from OpenAI, got ${JSON.stringify(message)}`);
+                if (message.function_call.name !== options.function_call) throw new Error(`Expected function call response from OpenAI for ${options.function_call}, got ${message.function_call.name}`);
+                if (!message.function_call.arguments) throw new Error(`Expected function call response from OpenAI for ${options.function_call} to have arguments, got ${JSON.stringify(message.function_call)}`);
+                const args = response.data.choices[0].message.function_call.arguments;
+                try {
+                    return JSON.parse(args);
+                } catch (e) {
+                    throw new Error(`Expected function call response from OpenAI for ${options.function_call} to have valid JSON arguments, got ${args}`)
+                }
+            }
             content = response.data.choices[0].message.content.trim();
         } else {
             content = response.data.choices[0].text.trim();

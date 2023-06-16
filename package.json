@@ -1,12 +1,12 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "Effortlessly integrate AI text and image models in your node applications",
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",
-        "test": "mocha",
-        "test:watch": "mocha --watch",
+        "test": "DEBUG=ai.js:* mocha",
+        "test:watch": "DEBUG=ai.js:* mocha --watch",
         "examples": "bash examples/run_all.sh"
     },
     "repository": {

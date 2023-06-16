@@ -54,6 +54,11 @@ async function completion(messages, options = {}) {
     if (!options.model) options.model = completion.defaultModel;
     if (!Array.isArray(messages)) throw new Error(`claude.completion() expected array of messages`);
 
+    const isFunctionCall = typeof options.schema !== "undefined" && typeof options.function_call !== "undefined";
+    if (isFunctionCall) {
+        throw new Error(`Anthropic does not support function calls`);
+    }
+
     const prompt = toAnthropic(messages, options.partial);
 
     const anthropicOptions = {

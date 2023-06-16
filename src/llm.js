@@ -9,7 +9,11 @@ function AI(input, options = null) {
     if (!(this instanceof AI)) { // function call
         return new Promise(async (resolve, reject) => {
             const llm = new AI(input, options);
-            resolve(await llm.send());
+            try {
+                resolve(await llm.send());
+            } catch (e) {
+                reject(e);
+            }
         });
     }
 
@@ -29,6 +33,8 @@ function AI(input, options = null) {
     this.parser = options.parser || null;
     this.temperature = (typeof options.temperature != "undefined" ? options.temperature : null);
     this.max_tokens = (typeof options.max_tokens != "undefined" ? options.max_tokens : null);
+    this.schema = options.schema || null;
+    this.function_call = options.function_call || null;
     this.stream = !!options.stream;
     this.partial = !!options.partial;
     this.context = options.context || AI.CONTEXT_FULL;
@@ -82,6 +88,8 @@ AI.prototype.send = async function (options = null) {
     if (!options.context) options.context = this.context;
     if ((typeof options.temperature == "undefined" || options.temperature == null) && this.temperature !== null) options.temperature = this.temperature;
     if ((typeof options.max_tokens == "undefined" || options.max_tokens == null) && this.max_tokens !== null) options.max_tokens = this.max_tokens;
+    if ((typeof options.schema == "undefined" || options.schema == null) && this.schema !== null) options.schema = this.schema;
+    if ((typeof options.function_call == "undefined" || options.function_call == null) && this.function_call !== null) options.function_call = this.function_call;
 
     let messages;
     if (options.context == AI.CONTEXT_FIRST) {

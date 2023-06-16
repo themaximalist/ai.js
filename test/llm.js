@@ -35,6 +35,24 @@ describe("llm", function () {
             const response = await AI("the color of the sky is", { temperature: 0, max_tokens: 1 });
             assert.equal(response, "blue");
         });
+
+        it("extract schema", async function () {
+            const schema = {
+                type: "object",
+                properties: {
+                    color: { type: "string" },
+                },
+                allowAdditionalProperties: false,
+            };
+
+            const response = await AI("the color of the sky is blue", {
+                model: "gpt-3.5-turbo-16k",
+                temperature: 0,
+                schema,
+                function_call: "extract_schema",
+            });
+            assert.deepEqual(response, { color: "blue" });
+        });
     });
 
     describe("anthropic", function () {
@@ -87,5 +105,31 @@ describe("llm", function () {
             assert.equal(ai.lastMessage.role, "assistant");
             assert.equal(ai.lastMessage.content, "yellow because of the sun");
         });
+    });
+
+    it("throws error on function call", async function () {
+        const schema = {
+            type: "object",
+            properties: {
+                color: { type: "string" },
+            },
+            allowAdditionalProperties: false,
+        };
+
+        let error = null;
+        try {
+            await AI("the color of the sky is blue", {
+                service: "anthropic",
+                temperature: 0,
+                schema,
+                function_call: "extract_schema",
+            })
+            assert.fail("Should have thrown error");
+        } catch (e) {
+            error = e;
+            assert.ok("Should have thrown error");
+        } finally {
+            assert(error);
+        }
     });
 });
