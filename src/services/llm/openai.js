@@ -42,6 +42,10 @@ async function completion(messages, options = {}) {
         openaiOptions.max_tokens = options.max_tokens;
     }
 
+    if (typeof options.seed !== "undefined") {
+        openaiOptions.seed = options.seed;
+    }
+
     if (isFunctionCall) {
         openaiOptions.functions = [{
             name: options.function_call,

@@ -33,6 +33,7 @@ function AI(input, options = null) {
     this.parser = options.parser || null;
     this.temperature = (typeof options.temperature != "undefined" ? options.temperature : null);
     this.max_tokens = (typeof options.max_tokens != "undefined" ? options.max_tokens : null);
+    this.seed = (typeof options.seed != "undefined" ? options.seed : null);
     this.schema = options.schema || null;
     this.function_call = options.function_call || null;
     this.stream = !!options.stream;
@@ -87,6 +88,7 @@ AI.prototype.send = async function (options = null) {
     if (!options.partial && this.partial) options.partial = this.partial;
     if (!options.context) options.context = this.context;
     if ((typeof options.temperature == "undefined" || options.temperature == null) && this.temperature !== null) options.temperature = this.temperature;
+    if ((typeof options.seed == "undefined" || options.seed == null) && this.seed !== null) options.seed = this.seed;
     if ((typeof options.max_tokens == "undefined" || options.max_tokens == null) && this.max_tokens !== null) options.max_tokens = this.max_tokens;
     if ((typeof options.schema == "undefined" || options.schema == null) && this.schema !== null) options.schema = this.schema;
     if ((typeof options.function_call == "undefined" || options.function_call == null) && this.function_call !== null) options.function_call = this.function_call;
