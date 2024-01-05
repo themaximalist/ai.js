@@ -1,7 +1,8 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.1.6",
+    "version": "0.2.0",
     "description": "Effortlessly integrate AI text and image models in your node applications",
+    "type": "module",
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",
@@ -24,8 +25,8 @@
         "gpt-3.5-turbo",
         "gpt-4",
         "claude-v1",
-        "stablediffusion",
-        "riffusion"
+        "claude-v2",
+        "stablediffusion"
     ],
     "author": "The Maximalist",
     "license": "MIT",
@@ -34,15 +35,12 @@
     },
     "homepage": "https://github.com/themaximal1st/ai.js#readme",
     "dependencies": {
-        "@anthropic-ai/sdk": "^0.4.3",
-        "commander": "^10.0.1",
+        "@themaximalist/embeddings.js": "^0.0.2",
+        "@themaximalist/imagine.js": "^0.0.1",
+        "@themaximalist/llm.js": "^0.3.2",
+        "@themaximalist/vectordb.js": "^0.0.2",
         "debug": "^4.3.4",
-        "dotenv": "^16.0.3",
-        "node-fetch": "^2.6.9",
-        "openai": "^3.2.1",
-        "prompt-sync": "^4.2.0",
-        "prompt-sync-history": "^1.0.1",
-        "replicate": "^0.11.1"
+        "dotenv": "^16.0.3"
     },
     "devDependencies": {
         "mocha": "^10.2.0"

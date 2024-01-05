@@ -1,8 +1,17 @@
-const log = require("debug")("ai.js:index");
 
-const AI = require("./llm");
-const Image = require("./image");
+import LLM from "@themaximalist/llm.js";
+import Imagine from "@themaximalist/imagine.js";
+import Embeddings from "@themaximalist/embeddings.js";
+import VectorDB from "@themaximalist/vectordb.js";
 
-AI.Image = require("./image");
+LLM.Imagine = Imagine;
+LLM.Embeddings = Embeddings;
+LLM.VectorDB = VectorDB;
 
-module.exports = AI;
+export default LLM;
+
+// const AI = require("./llm");
+
+// AI.Image = require("./image");
+
+// module.exports = AI;
