@@ -1,6 +1,7 @@
 import assert from "assert";
 
 import AI from "../src/index.js";
+// import fs from "fs";
 
 // AI.js is a wrapper. These libraries are already tested, we just test them here for basic correctness
 
@@ -27,6 +28,16 @@ describe("imagine", function () {
         const buffer = await AI.Imagine("a red rose", { service: AI.Imagine.REPLICATE });
         assert(buffer instanceof Buffer);
         assert(buffer.length > 0);
+    });
+
+    it("concept (openai, replicate)", async function () {
+        this.timeout(30000);
+        this.slow(20000);
+        const { prompt, buffer } = await AI.Imagine.Concept("a red rose", { service: AI.Imagine.REPLICATE, concept: { model: "gpt-3.5-turbo" } });
+        assert(prompt.length > 0);
+        assert(buffer instanceof Buffer);
+        assert(buffer.length > 0);
+        // fs.writeFileSync("test.png", buffer);
     });
 });
 
@@ -55,6 +66,3 @@ describe("vectordb", function () {
         assert(colors[0].input == "red");
     });
 });
-
-
-// imagine.js concept (llm -> stable diffusion0)

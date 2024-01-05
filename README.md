@@ -1,37 +1,39 @@
 # AI.js
 
-`AI.js` is the easiest way to add AI text and image capabilities to your node applications:
+`AI.js` is the easiest way to add AI text, image, embeddings and vector search to your node applications:
 
 ```javascript
 await AI("the color of the sky is"); // blue
 
 await AI.Image("a red rose"); // <image buffer: red rose>
 
-await AI.Image.Concept("a red rose"); // <image buffer: a red rose in realist style, watercolor>
+await AI.Image.Concept("a red rose"); // {prompt: a red rose in realist style, watercolor ...", <image buffer>}
+
+const db = new AI.VectorDB();
+await db.add("red");
+await db.search("redis") // red
 ```
 
-Under the hood `AI.js` seamlessly integrates all the best AI APIs:
+Under the hood `AI.js` seamlessly integrates easy to use local and remote APIs
 
-* **Text**: OpenAI, Anthropic
-* **Image**: Replicate, StabilityAI
-* **Music:** *Coming Soon*
+* **Text:** [LLM.js](https://github.com/themaximal1st/llm.js) use `LLaMa` locally, and `GPT-4`/`Claude` in same simple interface
+* **Image:** [Imagine.js](https://github.com/themaximal1st/imagine.js) supports local `Stable Diffusion` and remote services like `Replicate` and `Stability AI`
+* **Embeddings:** [Embeddings.js](https://github.com/themaximal1st/embeddings.js) create local and OpenAI embeddings
+* **VectorDB:** [VectorDB.js](https://github.com/themaximal1st/vectordb.js) searches similar embeddings in memory
+* **Audio:** *Coming Soon*
 * **Video:** *Coming Soon*
-* **Embeddings:** *Coming Soon*
-
-We're constantly looking for new models and APIs to add. In a future update, `AI.js` will support local models like `Stable Diffusion` and `LLaMA/Alpaca` with the same easy-to-use interface.
 
 *AI.js is under heavy development and still subject to breaking changes.*
-
-
 
 ## Features
 
 * Easy to use
-* Best LLM chat completion models (`gpt-3.5-turbo`, `gpt-4`, `claude-v1`, `claude-instant-v1`)
-* Best hosted image generation APIs (`stable-diffusion-xl-beta-v2-2-2`, many other Stable Diffusion models)
-* Same interface across all services
-* Streaming is easy as `{stream: true}`
-* `ai` CLI interface in your shell
+* Same simple interface for hundreds of models
+* All services offer a free local default, and paid 3rd party API
+* LLM with advanced features like one-shot prompts, chat history, streaming and JSON schema support
+* Image generation using the best open and paid models
+* Image concepts to easily combine LLMs with Image generators for impressive results
+* Easy to use text embeddings and vector search
 * MIT license
 
 
@@ -69,23 +71,9 @@ await ai.chat("what is the codeword?"); // blue
 
 
 
-### System and User Prompts
+## System and User Prompts
 
 Giving the `LLM` a role can help improve performance, this can be done through `system` and `user` prompts.
-
-```javascript
-await AI.system("I am HexBot—I generate beautiful hex color schemes", "autumn tree");
-// #F2AF80 (soft peach), #E78C4D (burnt orange), #C86018 (rusty red), #5B3B0B (deep brown), #252527 (dark grey)
-```
-
-OpenAI has mentioned `user` prompts may be more strongly enforced than `system` prompts.
-
-```javascript
-await AI.user("You are HexBot—you generate beautiful hex color schemes", "autumn tree");
-// #F2AF80 (soft peach), #E78C4D (burnt orange), #C86018 (rusty red), #5B3B0B (deep brown), #252527 (dark grey)
-```
-
-Providing `system` and `user` roles can also be used with message history.
 
 ```javascript
 const ai = new AI();
@@ -120,11 +108,11 @@ await ai.chat("now the codeword is red");
 await ai.chat("what is the codeword?"); // red
 ```
 
-Note: Anthropic's message format is text-based and less convenient, so `AI.js` uses the OpenAI message format, and it's converted automatically on-the-fly for Anthropic.
+All message formats between LLaMa, Anthropic and OpenAI use this format and `AI.js` automatically translates for each service.
 
 
 
-### Streaming
+## Streaming
 
 Streaming is as easy as passing `{stream: true}` as the second options parameter. A generator is returned that yields the completion tokens in real-time.
 
@@ -137,47 +125,9 @@ for await (const message of stream) {
 
 
 
-### AI() Interface
-
-The `AI()` interface is the same whether you're using `new` or `await`. Also `options` aim to be the same everywhere you can pass them, and use the most local scope possible, falling back to more global defaults and environment variables when needed.
-
-```javascript
-await|new AI(
-    string | array,
-    options = {
-        service: "openai", // openai, anthropic
-        model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
-        parser: null, // optional content parser or stream parser
-        stream: false,
-        temperature: null, // optional, can be 0-2 for openai, 0-1 for anthropic
-        max_tokens: null, // optional for openai, defaults to 2,000 for anthropic because its required
-        partial: false, // specify whether last response is a partial response "putting words in the AI's mouth"
-        context: AI.CONTEXT_FULL, // slices of message history can be sent, but by default send everything
-    }
-);
-```
-
-
-
-* **Static Methods**
-  * `AI.system(prompt, input, option=null)` one-time use system prompt
-  * `AI.user(prompt, input, options=null`) one-time use user prompt
-
-* **Instance Methods**
-  * `ai.send(options=null)` send chat completion request to network
-  * `ai.chat(content, options=null)` add user message and send chat completion request to network
-  * `ai.user(content)` add user message
-  * `ai.system(content)` add system message
-  * `ai.assistant(content)` add assistant message
-* **Instance Properties**
-  * `ai.messages[]` message history
-  * `ai.lastMessage` last message
-
-
-
 ## Image Generation
 
-`AI.js` provides powerful image generation functions through `StabilityAI` and `Replicate`. To get started, make sure you've set the `STABILITY_API_KEY` or `REPLICATE_API_KEY` environment variable.
+`AI.js` provides powerful image generation functions through `Automatic1111`, `StabilityAI` and `Replicate`. Make sure you have each service setup as needed, either running or a valid environment variable.
 
 ```javascript
 await AI.Image("a red rose"); // <image buffer: red rose>
@@ -186,51 +136,10 @@ await AI.Image("a red rose"); // <image buffer: red rose>
 `AI.js` also provides a concept generator—a way of using chat completion to generate a great image prompt. Using a concept generator can result in significantly better generated images.
 
 ```javascript
-await AI.Image.Concept("a red rose"); // <image buffer: a red rose in realist style, watercolor>
+await AI.Image.Concept("a red rose"); // {prompt: a red rose in realist style, watercolor ...", <image buffer>}
 ```
 
 This hits your `LLM` provider and generates a complex image prompt before sending it off to the image generation service. 
-
-You can also create an `AI.Image` object to retrieve properties like `generated_prompt` from `AI.Image.Concept`.
-
-```javascript
-const image = new AI.Image("a red rose");
-await image.concept(); // <image buffer: a red rose in realist style, watercolor>
-console.log(image.generated_prompt); // a red rose in the realist style, watercolor
-```
-
-
-
-### AI.Image() Interface
-
-The `AI.Image()` interface takes an input prompt and a few options.
-
-```javascript
-await|new Image(
-    string,
-    options = {
-        service: "stability", // stability, replicate
-        model: "stable-diffusion-xl-beta-v2-2-2",
-        concept_service: "openai", // openai, anthropic
-        concept_model: "gpt-3.5-turbo", // gpt-3.5-turbo, gpt-4, claude-v1, claude-instant-v1
-        concept_prompt: "I am Concept2Prompt. My task is to generate rich and dynamic scenes ...",
-    }
-);
-```
-
-* **Static Methods**
-  * `Image.Concept(string, options=null)` generate a concept and send image completion request to network
-* **Instance Methods**
-  * `image.send(options=null)` send image completion request to network
-  * `image.concept(prompt, options=null)` generate concept prompt and then send image completion request to network
-* **Instance Properties**
-  * `image.prompt` prompt supplied by user
-  * `image.generated_prompt` prompt created from `concept()`
-  * `service` image service
-  * `model` image model
-  * `concept_model` LLM concept model
-  * `concept_service` LLM concept service
-  * `concept_prompt` LLM concept prompt (uses default but can be overridden)
 
 
 
@@ -247,118 +156,16 @@ export STABILITY_API_KEY=sk-...
 export REPLICATE_API_KEY=sk-....
 ```
 
-##### Configure Service
-
-```bash
-export AI_SERVICE=openai
-export AI_SERVICE=anthropic
-
-export AI_IMAGE_SERVICE=stability
-export AI_IMAGE_SERVICE=replicate
-```
-
-##### Configure Model
-
-```bash
-export AI_MODEL=gpt-3.5-turbo
-export AI_MODEL=gpt-4
-export AI_MODEL=claude-v1
-export AI_MODEL=claude-instant-v1
-
-export AI_IMAGE_MODEL=stable-diffusion-xl-beta-v2-2-2
-```
-
-`AI.js` will make some effort to make sure the right models are used with the right service if no defaults are set. So you can switch to `anthropic` and `AI.js` will automatically use `claude-v1`.
 
 
+## Documentation
 
-## `AI` Command in your Shell
+`AI.js` includes many sub-projects, check out each individual project for full documentation.
 
-`AI.js` provides a handy `ai` command that can be invoked from your shell. This is an extremely convenient way to call models and services with the full power of `AI.js`. Access it globally by installing `npm install @themaximalist/ai.js -g` or setting up an `nvm` environment.
-
-```bash
-> ai the color of the sky is
-blue
-```
-
-Messages are streamed back in real time.
-
-You can also initiate a `--chat` to remember message history and continue your conversation. `Ctrl-C` to quit.
-
-```bash
-> ai remember the codeword is blue. say ok if you understand --chat
-OK, I understand.
-> what is the codeword?
-The codeword is blue.
-```
-
-Model and service can be specified on the fly
-
-```bash
-> ai the color of the sky is --service anthropic --model claude-v1
-blue
-```
-
-Or `ai` will fallback to `$AI_SERVICE` and `$AI_MODEL` environment variables.
-
-```bash
-> export AI_SERVICE=anthropic
-> export AI_MODEL=claude-v1
-> ai the color of the sky is
-blue # claude-v1 response
-```
-
-Image and concept generation also work
-
-```bash
-> ai a red rose --image # opens generated image of a red rose
-> ai a red rose --concept # opens a generated image of a close up of a red rose, its velvety petals shining under the golden hour light. The dew on its petals captures the tranquil beauty of nature in a refreshing way. The rose stands out against the blurred background with its deep crimson red color. Perfect for a romantic gesture or a symbolic display of love. Shot in Ultra HD (4K) with a shallow depth of field
-```
-
-
-
-Here's the help interface
-
-```bash
-> ai
-Usage: ai [options] [input]
-
-AI cli interface to generate chat completions and images
-
-Arguments:
-  input                    Input to send to AI service
-
-Options:
-  -V, --version            output the version number
-  -s, --service <service>  AI Service (default: openai)
-  -m, --model <model>      Completion Model (default: gpt-3.5-turbo)
-  -c, --chat               Chat Mode
-  -i, --image              Image Mode
-  --concept                Concept Image Mode
-  -h, --help               display help for command
-```
-
-
-
-## Debug
-
-`AI.js` and `ai` use the `debug` npm module with the `ai.js` namespace, so you can view debug logs by setting the `DEBUG` environment variable.
-
-```bash
-> DEBUG=ai.js:* ai the color of the sky is
-# debug logs
-blue
-> export DEBUG=ai.js:*
-> ai the color of the sky is
-# debug logs
-blue
-```
-
-
-
-## Examples
-
-View [examples](https://github.com/themaximal1st/ai.js/tree/main/examples) on how to use `AI.js`.
+* [LLM.js](https://github.com/themaximal1st/llm.js)
+* [Imagine.js](https://github.com/themaximal1st/imagine.js)
+* [Embeddings.js](https://github.com/themaximal1st/embeddings.js)
+* [VectorDB.js](https://github.com/themaximal1st/vectordb.js)
 
 
 
