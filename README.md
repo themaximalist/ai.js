@@ -1,6 +1,6 @@
 # AI.js
 
-`AI.js` is the easiest way to add AI text, image, embeddings and vector search to your node applications:
+`AI.js` is the easiest way to add AI text, images, embeddings and vector search to your node applications:
 
 ```javascript
 await AI("the color of the sky is"); // blue
@@ -8,6 +8,8 @@ await AI("the color of the sky is"); // blue
 await AI.Image("a red rose"); // <image buffer: red rose>
 
 await AI.Image.Concept("a red rose"); // {prompt: a red rose in realist style, watercolor ...", <image buffer>}
+
+await AI.Embeddings("hello world", { id: "123123"}); // Array(384)
 
 const db = new AI.VectorDB();
 await db.add("red");
