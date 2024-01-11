@@ -13,7 +13,7 @@ await AI.Embeddings("hello world", { id: "123123"}); // Array(384)
 
 const db = new AI.VectorDB();
 await db.add("red");
-await db.search("redis") // red
+await db.search("redish") // red
 ```
 
 Under the hood `AI.js` seamlessly integrates easy to use local and remote APIs
