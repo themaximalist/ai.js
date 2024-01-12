@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Effortlessly integrate AI text and image models in your node applications",
     "type": "module",
     "main": "src/index.js",
@@ -35,14 +35,22 @@
     },
     "homepage": "https://github.com/themaximal1st/ai.js#readme",
     "dependencies": {
-        "@themaximalist/embeddings.js": "^0.0.2",
+        "@themaximalist/embeddings.js": "^0.0.5",
         "@themaximalist/imagine.js": "^0.0.1",
-        "@themaximalist/llm.js": "^0.3.2",
-        "@themaximalist/vectordb.js": "^0.0.2",
+        "@themaximalist/llm.js": "^0.4.0",
+        "@themaximalist/vectordb.js": "^0.0.6",
         "debug": "^4.3.4",
         "dotenv": "^16.0.3"
     },
     "devDependencies": {
         "mocha": "^10.2.0"
+    },
+    "peerDependencies": {
+        "@xenova/transformers": "^2.14.0"
+    },
+    "peerDependenciesMeta": {
+        "@xenova/transformers": {
+            "optional": true
+        }
     }
 }
