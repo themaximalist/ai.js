@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
 TODO
-embeddings.cache.json
+.embeddings.cache.json
 test.png
+.env

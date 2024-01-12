@@ -11,9 +11,3 @@ LLM.Embeddings = Embeddings;
 LLM.VectorDB = VectorDB;
 
 export default LLM;
-
-// const AI = require("./llm");
-
-// AI.Image = require("./image");
-
-// module.exports = AI;

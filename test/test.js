@@ -1,7 +1,7 @@
-import assert from "assert";
+import "dotenv-extended/config.js"
+import assert from "assert"
 
-import AI from "../src/index.js";
-// import fs from "fs";
+import AI from "../src/index.js"
 
 // AI.js is a wrapper. These libraries are already tested, we just test them here for basic correctness
 
