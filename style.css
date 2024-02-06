@@ -13,6 +13,10 @@ h1 {
     display: none;
 }
 
+p br {
+    display: none;
+}
+
 h1 + p {
     text-align: center;
     margin: 0px;
