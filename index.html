@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="description" content="AI.js is a simple JavaScript library for interacting with LLMs, Image Generators, Embeddings, Vector Databases and more..." />
+  <title>AI.js — Simple AI JavaScript Library</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        background-color: #2a211c;
+        color: #bdae9d;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+    div.sourceCode
+      { color: #bdae9d; background-color: #2a211c; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ffff00; } /* Alert */
+    code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { } /* Attribute */
+    code span.bn { color: #44aa43; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #049b0a; } /* Char */
+    code span.cn { } /* Constant */
+    code span.co { color: #888888; font-style: italic; } /* Comment */
+    code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+    code span.dt { text-decoration: underline; } /* DataType */
+    code span.dv { color: #44aa43; } /* DecVal */
+    code span.er { color: #ffff00; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #44aa43; } /* Float */
+    code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+    code span.op { } /* Operator */
+    code span.pp { font-weight: bold; } /* Preprocessor */
+    code span.sc { color: #049b0a; } /* SpecialChar */
+    code span.ss { color: #049b0a; } /* SpecialString */
+    code span.st { color: #049b0a; } /* String */
+    code span.va { } /* Variable */
+    code span.vs { color: #049b0a; } /* VerbatimString */
+    code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="style.css" />
+  <script defer data-domain="aijs.themaximalist.com" src="https://s.cac.app/js/script.outbound-links.js"></script>
+</head>
+<body>
+<a class="fork-me" href="https://github.com/themaximal1st/ai.js"><img decoding="async" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" loading="lazy" data-recalc-dims="1"></a>
+<header id="title-block-header">
+<h1 class="title">AI.js — Simple AI JavaScript Library</h1>
+</header>
+<h1 id="ai.js">AI.js</h1>
+<p><img src="logo.png" /></p>
+<div class="badges" style="text-align: center">
+<p><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/ai.js">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fai.js">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/ai.js">
+<img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/ai.js"></p>
+</div>
+<p><code>AI.js</code> is the easiest way to add AI text, images,
+embeddings and vector search to your node applications:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">AI</span>(<span class="st">&quot;the color of the sky is&quot;</span>)<span class="op">;</span> <span class="co">// blue</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> AI<span class="op">.</span><span class="fu">Image</span>(<span class="st">&quot;a red rose&quot;</span>)<span class="op">;</span> <span class="co">// &lt;image buffer: red rose&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> AI<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">Concept</span>(<span class="st">&quot;a red rose&quot;</span>)<span class="op">;</span> <span class="co">// {prompt: a red rose in realist style, watercolor ...&quot;, &lt;image buffer&gt;}</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> AI<span class="op">.</span><span class="fu">Embeddings</span>(<span class="st">&quot;hello world&quot;</span><span class="op">,</span> { <span class="dt">id</span><span class="op">:</span> <span class="st">&quot;123123&quot;</span>})<span class="op">;</span> <span class="co">// Array(384)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> db <span class="op">=</span> <span class="kw">new</span> AI<span class="op">.</span><span class="fu">VectorDB</span>()<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> db<span class="op">.</span><span class="fu">add</span>(<span class="st">&quot;red&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> db<span class="op">.</span><span class="fu">search</span>(<span class="st">&quot;redish&quot;</span>) <span class="co">// red</span></span></code></pre></div>
+<p>Under the hood <code>AI.js</code> seamlessly integrates easy to use
+local and remote APIs</p>
+<ul>
+<li><strong>Text:</strong> <a
+href="https://github.com/themaximal1st/llm.js">LLM.js</a> use
+<code>LLaMa</code> locally, and <code>GPT-4</code>/<code>Claude</code>
+in same simple interface</li>
+<li><strong>Image:</strong> <a
+href="https://github.com/themaximal1st/imagine.js">Imagine.js</a>
+supports local <code>Stable Diffusion</code> and remote services like
+<code>Replicate</code> and <code>Stability AI</code></li>
+<li><strong>Embeddings:</strong> <a
+href="https://github.com/themaximal1st/embeddings.js">Embeddings.js</a>
+create local and OpenAI embeddings</li>
+<li><strong>VectorDB:</strong> <a
+href="https://github.com/themaximal1st/vectordb.js">VectorDB.js</a>
+searches similar embeddings in memory</li>
+<li><strong>Audio:</strong> <em>Coming Soon</em></li>
+<li><strong>Video:</strong> <em>Coming Soon</em></li>
+</ul>
+<p><em>AI.js is under heavy development and still subject to breaking
+changes.</em></p>
+<h2 id="features">Features</h2>
+<ul>
+<li>Easy to use</li>
+<li>Same simple interface for hundreds of models</li>
+<li>All services offer a free local default, and paid 3rd party API</li>
+<li>LLM with advanced features like one-shot prompts, chat history,
+streaming and JSON schema support</li>
+<li>Image generation using the best open and paid models</li>
+<li>Image concepts to easily combine LLMs with Image generators for
+impressive results</li>
+<li>Easy to use text embeddings and vector search</li>
+<li>MIT license</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>Install <code>AI.js</code> via npm</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install @themaximalist/ai.js</span></code></pre></div>
+<p>Enable at least one service by setting its environment
+<code>API_KEY</code></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span>sk-...</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span>sk-ant-...</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">STABILITY_API_KEY</span><span class="op">=</span>sk-...</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span></code></pre></div>
+<h2 id="usage">Usage</h2>
+<p>The default interface is text. <code>AI.js</code> lets you send
+one-off requests or build up complex message histories with the Large
+Language Model (LLM).</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> AI <span class="op">=</span> <span class="pp">require</span>(<span class="st">&quot;@themaximalist/ai.js&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">AI</span>(<span class="st">&quot;what is the codeword?&quot;</span>)<span class="op">;</span> <span class="co">// i don&#39;t know any codewords</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ai <span class="op">=</span> <span class="kw">new</span> <span class="fu">AI</span>(<span class="st">&quot;the codeword is blue&quot;</span>)<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">chat</span>(<span class="st">&quot;what is the codeword?&quot;</span>)<span class="op">;</span> <span class="co">// blue</span></span></code></pre></div>
+<h2 id="system-and-user-prompts">System and User Prompts</h2>
+<p>Giving the <code>LLM</code> a role can help improve performance, this
+can be done through <code>system</code> and <code>user</code>
+prompts.</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ai <span class="op">=</span> <span class="kw">new</span> <span class="fu">AI</span>()<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ai<span class="op">.</span><span class="fu">system</span>(<span class="st">&quot;I am HexBot—I generate beautiful hex color schemes&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">chat</span>(<span class="st">&quot;autumn tree&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">// #663300 (dark brown), #CC6600 (deep orange), #FF9900 (bright orange), #FFCC00 (golden yellow), #663399 (deep purple)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">chat</span>(<span class="st">&quot;make it lighter&quot;</span>)<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">// #885533 (light brown), #FF9933 (pale orange), #FFCC66 ( light orange), #FFEE99 (pale yellow), #9966CC (light purple)</span></span></code></pre></div>
+<h2 id="message-history">Message History</h2>
+<p>Chat history can build up over time, or you can initialize with an
+existing history.</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">AI</span>([</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">role</span><span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> <span class="dt">content</span><span class="op">:</span> <span class="st">&quot;remember the secret codeword is blue&quot;</span> }<span class="op">,</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">role</span><span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> <span class="dt">content</span><span class="op">:</span> <span class="st">&quot;what is the secret codeword I just told you?&quot;</span> }<span class="op">,</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>])<span class="op">;</span> <span class="co">// blue</span></span></code></pre></div>
+<p>Or initialize with an existing history, and continue the
+conversation.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> ai <span class="op">=</span> <span class="kw">new</span> <span class="fu">AI</span>([</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">role</span><span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> <span class="dt">content</span><span class="op">:</span> <span class="st">&quot;remember the secret codeword is blue&quot;</span> }<span class="op">,</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    { <span class="dt">role</span><span class="op">:</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> <span class="dt">content</span><span class="op">:</span> <span class="st">&quot;what is the secret codeword I just told you?&quot;</span> }<span class="op">,</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>])<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">send</span>()<span class="op">;</span> <span class="co">// blue</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">chat</span>(<span class="st">&quot;now the codeword is red&quot;</span>)<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> ai<span class="op">.</span><span class="fu">chat</span>(<span class="st">&quot;what is the codeword?&quot;</span>)<span class="op">;</span> <span class="co">// red</span></span></code></pre></div>
+<p>All message formats between LLaMa, Anthropic and OpenAI use this
+format and <code>AI.js</code> automatically translates for each
+service.</p>
+<h2 id="streaming">Streaming</h2>
+<p>Streaming is as easy as passing <code>{stream: true}</code> as the
+second options parameter. A generator is returned that yields the
+completion tokens in real-time.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> stream <span class="op">=</span> <span class="cf">await</span> <span class="fu">AI</span>(<span class="st">&quot;the color of the sky is&quot;</span><span class="op">,</span> { <span class="dt">stream</span><span class="op">:</span> <span class="kw">true</span> })<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="cf">await</span> (<span class="kw">const</span> message <span class="kw">of</span> stream) {</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">process</span><span class="op">.</span><span class="at">stdout</span><span class="op">.</span><span class="fu">write</span>(message)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<h2 id="image-generation">Image Generation</h2>
+<p><code>AI.js</code> provides powerful image generation functions
+through <code>Automatic1111</code>, <code>StabilityAI</code> and
+<code>Replicate</code>. Make sure you have each service setup as needed,
+either running or a valid environment variable.</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> AI<span class="op">.</span><span class="fu">Image</span>(<span class="st">&quot;a red rose&quot;</span>)<span class="op">;</span> <span class="co">// &lt;image buffer: red rose&gt;</span></span></code></pre></div>
+<p><code>AI.js</code> also provides a concept generator—a way of using
+chat completion to generate a great image prompt. Using a concept
+generator can result in significantly better generated images.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> AI<span class="op">.</span><span class="at">Image</span><span class="op">.</span><span class="fu">Concept</span>(<span class="st">&quot;a red rose&quot;</span>)<span class="op">;</span> <span class="co">// {prompt: a red rose in realist style, watercolor ...&quot;, &lt;image buffer&gt;}</span></span></code></pre></div>
+<p>This hits your <code>LLM</code> provider and generates a complex
+image prompt before sending it off to the image generation service.</p>
+<h2 id="environment-variables">Environment Variables</h2>
+<p><code>AI.js</code> supports configuration through environment
+variables.</p>
+<h5 id="configure-api-keys">Configure API keys</h5>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span>sk-...</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span>sk-ant-...</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">STABILITY_API_KEY</span><span class="op">=</span>sk-...</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span></code></pre></div>
+<h2 id="documentation">Documentation</h2>
+<p><code>AI.js</code> includes many sub-projects, check out each
+individual project for full documentation.</p>
+<ul>
+<li><a href="https://github.com/themaximal1st/llm.js">LLM.js</a></li>
+<li><a
+href="https://github.com/themaximal1st/imagine.js">Imagine.js</a></li>
+<li><a
+href="https://github.com/themaximal1st/embeddings.js">Embeddings.js</a></li>
+<li><a
+href="https://github.com/themaximal1st/vectordb.js">VectorDB.js</a></li>
+</ul>
+<h2 id="projects">Projects</h2>
+<p><code>AI.js</code> is currently used in the following projects:</p>
+<ul>
+<li><a href="https://infinityarcade.com">Infinity Arcade</a></li>
+</ul>
+<h2 id="author">Author</h2>
+<ul>
+<li><a href="https://themaximalist.com/">The Maximalist</a></li>
+<li><a href="https://twitter.com/themaximal1st"><span class="citation"
+data-cites="themaximal1st">@themaximal1st</span></a></li>
+</ul>
+<h2 id="license">License</h2>
+<p>MIT</p>
+</body>
+</html>

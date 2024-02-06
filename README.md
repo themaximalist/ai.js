@@ -1,5 +1,13 @@
 # AI.js
 
+<img src="logo.png" />
+
+<div class="badges" style="text-align: center">
+<img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/ai.js">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fai.js">
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/ai.js">
+<img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/ai.js">
+</div>
 `AI.js` is the easiest way to add AI text, images, embeddings and vector search to your node applications:
 
 ```javascript
