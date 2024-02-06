@@ -30,9 +30,9 @@ await db.search("redish") // red
 Under the hood `AI.js` seamlessly integrates easy to use local and remote APIs
 
 * **Text:** [LLM.js](https://llmjs.themaximalist.com) use `LLaMa` locally, and `GPT-4`/`Claude` in same simple interface
-* **Image:** [Imagine.js](https://github.com/themaximal1st/imagine.js) supports local `Stable Diffusion` and remote services like `Replicate` and `Stability AI`
-* **Embeddings:** [Embeddings.js](https://github.com/themaximal1st/embeddings.js) create local and OpenAI embeddings
-* **VectorDB:** [VectorDB.js](https://github.com/themaximal1st/vectordb.js) searches similar embeddings in memory
+* **Image:** [Imagine.js](https://imaginejs.themaximalist.com/) supports local `Stable Diffusion` and remote services like `Replicate` and `Stability AI`
+* **Embeddings:** [Embeddings.js](https://embeddingsjs.themaximalist.com/) create local and OpenAI embeddings
+* **VectorDB:** [VectorDB.js](https://vectordbjs.themaximalist.com/) searches similar embeddings in memory
 * **Audio:** *Coming Soon*
 * **Video:** *Coming Soon*
 
