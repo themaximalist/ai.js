@@ -24,8 +24,7 @@ h1 + p {
 }
 
 h1 + p img {
-    width: 100%;
-    max-width: 800px;
+    max-width: 400px;
 }
 
 header {
