@@ -8,7 +8,9 @@
 <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/ai.js">
 <img alt="GitHub License" src="https://img.shields.io/github/license/themaximal1st/ai.js">
 </div>
+
 <br />
+
 `AI.js` is the easiest way to add AI text, images, embeddings and vector search to your node applications:
 
 ```javascript
