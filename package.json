@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Effortlessly integrate AI text and image models in your node applications",
     "type": "module",
     "main": "src/index.js",
@@ -33,7 +33,7 @@
     "bugs": {
         "url": "https://github.com/themaximal1st/ai.js/issues"
     },
-    "homepage": "https://github.com/themaximal1st/ai.js#readme",
+    "homepage": "https://aijs.themaximalist.com",
     "dependencies": {
         "@themaximalist/embeddings.js": "^0.0.5",
         "@themaximalist/imagine.js": "^0.0.1",
