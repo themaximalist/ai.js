@@ -175,10 +175,10 @@ export REPLICATE_API_KEY=sk-....
 
 `AI.js` includes many sub-projects, check out each individual project for full documentation.
 
-* [LLM.js](https://llmjs.themaximalist.com)
-* [Imagine.js](https://github.com/themaximal1st/imagine.js)
-* [Embeddings.js](https://github.com/themaximal1st/embeddings.js)
-* [VectorDB.js](https://github.com/themaximal1st/vectordb.js)
+* [LLM.js](https://llmjs.themaximalist.com) — Simple interface to dozens of Large Language Models
+* [Imagine.js](https://github.com/themaximal1st/imagine.js) — Local and remote image generation library
+* [Embeddings.js](https://github.com/themaximal1st/embeddings.js) — Simple local or OpenAI text embeddings
+* [VectorDB.js](https://github.com/themaximal1st/vectordb.js) — Local text similarity search
 
 
 
@@ -186,7 +186,7 @@ export REPLICATE_API_KEY=sk-....
 
 `AI.js` is currently used in the following projects:
 
--   [Infinity Arcade](https://infinityarcade.com)
+-   [Infinity Arcade](https://infinityarcade.com) — Play any text adventure game
 
 
 
