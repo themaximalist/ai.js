@@ -35,10 +35,10 @@
     },
     "homepage": "https://aijs.themaximalist.com",
     "dependencies": {
-        "@themaximalist/embeddings.js": "^0.0.5",
-        "@themaximalist/imagine.js": "^0.0.1",
-        "@themaximalist/llm.js": "^0.4.0",
-        "@themaximalist/vectordb.js": "^0.0.6",
+        "@themaximalist/embeddings.js": "^0.1.0",
+        "@themaximalist/imagine.js": "^0.0.3",
+        "@themaximalist/llm.js": "^0.5.3",
+        "@themaximalist/vectordb.js": "^0.0.9",
         "debug": "^4.3.4",
         "dotenv": "^16.0.3"
     },
