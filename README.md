@@ -11,7 +11,7 @@
 
 <br />
 
-`AI.js` is the easiest way to add AI text, images, embeddings and vector search to your node applications:
+`AI.js` is the easiest way to add AI text, images, embeddings and vector search to your Node.js app.
 
 ```javascript
 await AI("the color of the sky is"); // blue
@@ -29,9 +29,9 @@ await db.search("redish") // red
 
 Under the hood `AI.js` seamlessly integrates easy to use local and remote APIs
 
-* **Text:** [LLM.js](https://llmjs.themaximalist.com) use `LLaMa` locally, and `GPT-4`/`Claude` in same simple interface
+* **Text:** [LLM.js](https://llmjs.themaximalist.com) use `LLaMa` locally, and `GPT-4`, `Claude` or `Mistral` in same simple interface
 * **Image:** [Imagine.js](https://imaginejs.themaximalist.com/) supports local `Stable Diffusion` and remote services like `Replicate` and `Stability AI`
-* **Embeddings:** [Embeddings.js](https://embeddingsjs.themaximalist.com/) create local and OpenAI embeddings
+* **Embeddings:** [Embeddings.js](https://embeddingsjs.themaximalist.com/) create `local`, `OpenAI` or `Mistral` embeddings
 * **VectorDB:** [VectorDB.js](https://vectordbjs.themaximalist.com/) searches similar embeddings in memory
 * **Audio:** *Coming Soon*
 * **Video:** *Coming Soon*
@@ -66,6 +66,7 @@ export OPENAI_API_KEY=sk-...
 export ANTHROPIC_API_KEY=sk-ant-...
 export STABILITY_API_KEY=sk-...
 export REPLICATE_API_KEY=sk-....
+export MISTRAL_API_KEY=...
 ```
 
 
@@ -167,6 +168,7 @@ export OPENAI_API_KEY=sk-...
 export ANTHROPIC_API_KEY=sk-ant-...
 export STABILITY_API_KEY=sk-...
 export REPLICATE_API_KEY=sk-....
+export MISTRAL_API_KEY=...
 ```
 
 

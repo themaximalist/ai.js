@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "Effortlessly integrate AI text and image models in your node applications",
     "type": "module",
     "main": "src/index.js",

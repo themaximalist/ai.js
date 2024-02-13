@@ -104,7 +104,7 @@
 </div>
 <p><br /></p>
 <p><code>AI.js</code> is the easiest way to add AI text, images,
-embeddings and vector search to your node applications:</p>
+embeddings and vector search to your Node.js app.</p>
 <div class="sourceCode" id="cb1"><pre
 class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">await</span> <span class="fu">AI</span>(<span class="st">&quot;the color of the sky is&quot;</span>)<span class="op">;</span> <span class="co">// blue</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -122,15 +122,16 @@ local and remote APIs</p>
 <ul>
 <li><strong>Text:</strong> <a
 href="https://llmjs.themaximalist.com">LLM.js</a> use <code>LLaMa</code>
-locally, and <code>GPT-4</code>/<code>Claude</code> in same simple
-interface</li>
+locally, and <code>GPT-4</code>, <code>Claude</code> or
+<code>Mistral</code> in same simple interface</li>
 <li><strong>Image:</strong> <a
 href="https://imaginejs.themaximalist.com/">Imagine.js</a> supports
 local <code>Stable Diffusion</code> and remote services like
 <code>Replicate</code> and <code>Stability AI</code></li>
 <li><strong>Embeddings:</strong> <a
 href="https://embeddingsjs.themaximalist.com/">Embeddings.js</a> create
-local and OpenAI embeddings</li>
+<code>local</code>, <code>OpenAI</code> or <code>Mistral</code>
+embeddings</li>
 <li><strong>VectorDB:</strong> <a
 href="https://vectordbjs.themaximalist.com/">VectorDB.js</a> searches
 similar embeddings in memory</li>
@@ -162,7 +163,8 @@ class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span>sk-...</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span>sk-ant-...</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">STABILITY_API_KEY</span><span class="op">=</span>sk-...</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span></code></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MISTRAL_API_KEY</span><span class="op">=</span>...</span></code></pre></div>
 <h2 id="usage">Usage</h2>
 <p>The default interface is text. <code>AI.js</code> lets you send
 one-off requests or build up complex message histories with the Large
@@ -236,7 +238,8 @@ variables.</p>
 class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OPENAI_API_KEY</span><span class="op">=</span>sk-...</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">ANTHROPIC_API_KEY</span><span class="op">=</span>sk-ant-...</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">STABILITY_API_KEY</span><span class="op">=</span>sk-...</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span></code></pre></div>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">REPLICATE_API_KEY</span><span class="op">=</span>sk-....</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">MISTRAL_API_KEY</span><span class="op">=</span>...</span></code></pre></div>
 <h2 id="documentation">Documentation</h2>
 <p><code>AI.js</code> includes many sub-projects, check out each
 individual project for full documentation.</p>
