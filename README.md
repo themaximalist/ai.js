@@ -2,7 +2,7 @@
 
 <img src="public/logo.png" alt="AI.js — AI Toolkit for Node.js" class="logo" style="max-width: 300px;" />
 
-<div class="badges" style="text-align: center; margin-top: -20px;">
+<div class="badges" style="text-align: center; margin-top: 0px;">
 <a href="https://github.com/themaximal1st/ai.js"><img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/themaximal1st/ai.js"></a>
 <a href="https://www.npmjs.com/package/@themaximalist/ai.js"><img alt="NPM Downloads" src="https://img.shields.io/npm/dt/%40themaximalist%2Fai.js"></a>
 <a href="https://github.com/themaximal1st/ai.js"><img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/themaximal1st/ai.js"></a>
