@@ -1,7 +1,7 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.2.4",
-    "description": "Effortlessly integrate AI text and image models in your node applications",
+    "version": "0.2.5",
+    "description": "AI Toolkit for Node.js (LLM, Image Generation, Embeddings, Vector Search)",
     "type": "module",
     "main": "src/index.js",
     "scripts": {
@@ -35,10 +35,10 @@
     },
     "homepage": "https://aijs.themaximalist.com",
     "dependencies": {
-        "@themaximalist/embeddings.js": "^0.1.0",
-        "@themaximalist/imagine.js": "^0.0.3",
-        "@themaximalist/llm.js": "^0.5.3",
-        "@themaximalist/vectordb.js": "^0.0.9",
+        "@themaximalist/embeddings.js": "latest",
+        "@themaximalist/imagine.js": "latest",
+        "@themaximalist/llm.js": "latest",
+        "@themaximalist/vectordb.js": "latest",
         "debug": "^4.3.4",
         "dotenv": "^16.0.3"
     },
