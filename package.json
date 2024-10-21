@@ -1,6 +1,6 @@
 {
     "name": "@themaximalist/ai.js",
-    "version": "0.2.6",
+    "version": "0.2.7",
     "description": "AI Toolkit for Node.js (LLM, Image Generation, Embeddings, Vector Search)",
     "type": "module",
     "main": "src/index.js",
