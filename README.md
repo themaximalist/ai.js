@@ -187,6 +187,11 @@ You can combine multiple logs with a comma.
 `AI.js` is currently used in the following projects:
 
 -   [Infinity Arcade](https://infinityarcade.com) — Play any text adventure game
+-   [News Score](https://newsscore.com) — score and sort the news
+-   [AI Image Explorer](https://aiimageexplorer.com) — image explorer
+-   [Think Machine](https://thinkmachine.com) — AI research assistant
+-   [Thinkable Type](https://thinkabletype.com) — Information Architecture Language
+-   [Minds App](https://mindsapp.com) — AI chat in your menubar
 
 
 ## License
